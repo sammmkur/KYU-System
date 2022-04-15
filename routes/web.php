@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('qrcode', function () {
+    return QrCode::size(250)
+        ->backgroundColor(255, 255, 204)
+        ->generate('MyNotePaper');
+});
+
+Route::get('qrcode_blade', function () {
+    return view('list');
+});
