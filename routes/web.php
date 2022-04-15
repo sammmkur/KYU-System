@@ -24,5 +24,5 @@ Route::get('qrcode', function () {
 });
 
 Route::get('qrcode_blade', function () {
-    return view('qr_code');
+    return view('list');
 });
