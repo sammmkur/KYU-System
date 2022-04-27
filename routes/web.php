@@ -26,3 +26,6 @@ Route::get('qrcode', function () {
 Route::get('qrcode_blade', function () {
     return view('list');
 });
+Route::get('qrcode_scanner', function () {
+    return view('scanner_list');
+});
