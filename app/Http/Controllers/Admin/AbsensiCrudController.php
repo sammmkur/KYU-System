@@ -6,6 +6,8 @@ use App\Http\Requests\AbsensiRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Carbon\Carbon;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 /**
  * Class AbsensiCrudController
  * @package App\Http\Controllers\Admin
@@ -117,5 +119,9 @@ class AbsensiCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+    
+    public function download(){
+        return Excel::download(new UsersExport, 'absensi.xlsx');
     }
 }
