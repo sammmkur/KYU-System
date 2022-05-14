@@ -8,6 +8,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Carbon\Carbon;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\Request;
 /**
  * Class AbsensiCrudController
  * @package App\Http\Controllers\Admin
@@ -37,6 +38,7 @@ class AbsensiCrudController extends CrudController
         CRUD::setModel(\App\Models\Absensi::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/absensi');
         CRUD::setEntityNameStrings('absensi', 'absensi');
+        CRUD::addButtonFromView('top', 'modal_download', 'modal_download', 'beginning');
     }
 
     /**
@@ -121,7 +123,18 @@ class AbsensiCrudController extends CrudController
         $this->setupCreateOperation();
     }
     
-    public function download(){
+    public function download(Request $request){
+
+      $period = $request->period;
+      $month = $request->month;
+      $absen_data = Absensi::where('period', $period)->where('month', $month)->get();
+      if(!$absen_data->isEmpty()){
+          foreach($absen_data as $absen){
+            dd(
+                $absen
+            );
+          }
+      }
         return Excel::download(new UsersExport, 'absensi.xlsx');
     }
 }
