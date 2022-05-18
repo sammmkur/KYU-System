@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\Request;
+use App\Models\Absensi;
 /**
  * Class AbsensiCrudController
  * @package App\Http\Controllers\Admin
@@ -125,14 +126,24 @@ class AbsensiCrudController extends CrudController
     
     public function download(Request $request){
 
-      $period = $request->period;
+      $data = [];
+      $year = $request->period;
       $month = $request->month;
-      $absen_data = Absensi::where('period', $period)->where('month', $month)->get();
+    //   $absen_data = Absensi::with('user')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->orderBy('name')->get();
+        $absen_data = Absensi::get()->sortBy(function($query){
+            return $query->user->complete_name;
+        })->unique();
+
       if(!$absen_data->isEmpty()){
           foreach($absen_data as $absen){
-            dd(
-                $absen
-            );
+     
+            $data[$absen->user_id] = [
+                'complete_name' => $absen->user->complete_name,
+                'short_name' => $absen->user->name,
+                'absent_date' => $absen->created_at->format('d-M-y')
+            ];
+          
+            
           }
       }
         return Excel::download(new UsersExport, 'absensi.xlsx');
