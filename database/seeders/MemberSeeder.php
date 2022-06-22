@@ -114,7 +114,6 @@ class MemberSeeder extends Seeder
                     User::create([
                         'complete_name' => $complete_name,
                         'name' => $name,
-                        // 'email' => $email,
                         'gender' => $gender,
                         'city' => $city,
                         'place_birth' => $place_of_birth,
@@ -127,7 +126,7 @@ class MemberSeeder extends Seeder
                         'church_membership' => $church_membership,
                         'phone_number' => $notelp,
                         'email' => $email,
-                        'password' => Hash::make($password)
+                        'password' => bcrypt($password)
                     ]);
                 }else{
                     $user->update([
