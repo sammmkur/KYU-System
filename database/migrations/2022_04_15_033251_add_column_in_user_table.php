@@ -14,16 +14,16 @@ class AddColumnInUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('complete_name')->after('email');
-            $table->string('phone_number')->after('complete_name');
-            $table->string('instagram')->after('phone_number');
-            $table->string('gender')->after('instagram');
-            $table->string('main_address')->after('gender');
-            $table->string('living_address')->after('main_address');
-            $table->string('place_birth')->after('living_address');
-            $table->string('city')->after('place_birth');
-            $table->string('work')->after('city');
-            $table->string('church_membership')->after('work');
+            $table->string('complete_name')->after('email')->nullable();
+            $table->string('phone_number')->after('complete_name')->nullable();
+            $table->string('instagram')->after('phone_number')->nullable();
+            $table->string('gender')->after('instagram')->nullable();
+            $table->string('main_address')->after('gender')->nullable();
+            $table->string('living_address')->after('main_address')->nullable();
+            $table->string('place_birth')->after('living_address')->nullable();
+            $table->string('city')->after('place_birth')->nullable();
+            $table->string('work')->after('city')->nullable();
+            $table->string('church_membership')->after('work')->nullable();
         });
     }
 
