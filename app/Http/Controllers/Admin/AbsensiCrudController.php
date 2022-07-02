@@ -106,7 +106,7 @@ class AbsensiCrudController extends CrudController
 
             // optional - manually specify the related model and attribute
             'model'     => "App\Models\User", // related model
-            'attribute' => 'name', // foreign key attribute that is shown to user
+            'attribute' => 'complete_name', // foreign key attribute that is shown to user
         ]); 
 
         /**
