@@ -35,7 +35,7 @@ class AbsensiPerSheet implements  WithTitle, FromView
         $periode = $this->periode;
         // dd($request);
       
-        if($this->i == 1){
+        // if($this->i == 1){
            
             return view('exports.absenlaki', [
                 'data' => $request,
@@ -44,16 +44,16 @@ class AbsensiPerSheet implements  WithTitle, FromView
                 
                
             ]);
-        }
-        else if($this->i == 2) {
-            // dd($this->request);
-            return view('exports.absenperempuan', [
-                'data' => $request,
-                'date' => $date,
-                'periode' => $periode,
+        // }
+        // else if($this->i == 2) {
+        //     // dd($this->request);
+        //     return view('exports.absenlaki', [
+        //         'data' => $request,
+        //         'date' => $date,
+        //         'periode' => $periode,
                
-            ]);
-        }
+        //     ]);
+        // }
     }
 
     public function title(): string

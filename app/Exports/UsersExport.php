@@ -36,16 +36,13 @@ class UsersExport implements WithMultipleSheets, FromArray
         
         $j=1;
 
-       
-       
-       
-
-        
-
         foreach($this->request as $key => $value){
             // foreach($value as $key2 => $value2){
-                // dd($key);
-                $sheets[] = new AbsensiPerSheet($j,$value, $this->date, $this->periode);
+                // if($j==2){
+
+                    // dd($key);
+                    $sheets[] = new AbsensiPerSheet($j,$value, $this->date, $this->periode);
+                // }
                 // $sheets[] = new ControlPointPerSheet($j, $value, $this->request[1]);
                 // dd($sheets);
             // }
