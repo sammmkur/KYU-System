@@ -20,7 +20,6 @@ class UsersExport implements WithMultipleSheets, FromArray
         $this->request = $data;
         $this->date = $date;
         $this->periode = $periode;
-        // dd($this->request);
     }
     public function array(): array
     {
@@ -30,52 +29,18 @@ class UsersExport implements WithMultipleSheets, FromArray
     
     public function sheets(): array
     {  
-       
-        // dd($this->date, $this->request);
         $sheets = [];
         
         $j=1;
 
-       
-       
-       
-
-        
-
         foreach($this->request as $key => $value){
-            // foreach($value as $key2 => $value2){
-                // dd($key);
-                $sheets[] = new AbsensiPerSheet($j,$value, $this->date, $this->periode);
-                // $sheets[] = new ControlPointPerSheet($j, $value, $this->request[1]);
-                // dd($sheets);
-            // }
-            // dd(count($value));
-        // for ($i=1; $i <= count($this->request) ; $i++) { 
-            // foreach($value as $id=>$data_sheet){
-                // dd($key);
-                // array_key_exist
-                // if($key == 'L'){
-                    // $j=1;
-                    // $sheets[] = new AbsensiPerSheet($j, $value);
-                    // $j++;
-                // }
-                // }else{
-                //     $j=2;
-                //     $sheets[] = new AbsensiPerSheet($j, $data_sheet);
-                //     // $j++;
-                // }
-                // $sheets[] = new AbsensiPerSheet($j, $this->request[$key]);
-            // }
+          
+                    $sheets[] = new AbsensiPerSheet($j,$value, $this->date, $this->periode);
+              
             $j++;
         }
-        // dd($j);
 
         return $sheets;
     }
-    // public function view(): View
-    // {
-    //     return view('exports.invoices', [
-    //         'invoices' => Invoice::all()
-    //     ]);
-    // }
+   
 }

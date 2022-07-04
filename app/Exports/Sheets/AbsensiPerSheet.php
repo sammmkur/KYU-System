@@ -53,6 +53,14 @@ class AbsensiPerSheet implements  WithTitle, FromView
                 'periode' => $periode,
                
             ]);
+        }else{
+            return view('exports.absenlaki', [
+                'data' => $request,
+                'date' => $date,
+                'periode' => $periode,
+                
+               
+            ]);
         }
     }
 
