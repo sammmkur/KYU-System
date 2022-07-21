@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithTitle;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithPreCalculateFormulas;
 use Carbon\Carbon;
 
-class AbsensiPerSheet implements  WithTitle, FromView
+class AbsensiPerSheet implements  WithTitle, FromView, ShouldAutoSize, WithPreCalculateFormulas
 {
     private $i;
     private $request;
