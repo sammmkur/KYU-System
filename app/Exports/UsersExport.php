@@ -7,8 +7,10 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Concerns\FromArray;
 use App\Exports\Sheets\AbsensiPerSheet;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithPreCalculateFormulas;
 
-class UsersExport implements WithMultipleSheets, FromArray
+class UsersExport implements WithMultipleSheets, FromArray, ShouldAutoSize, WithPreCalculateFormulas
 {
     /**
     * @return \Illuminate\Support\Collection
