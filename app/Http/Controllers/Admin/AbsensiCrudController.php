@@ -144,10 +144,6 @@ class AbsensiCrudController extends CrudController
         $periode = [];
         $year = $request->period;
         $month = $request->month;
-    //   $absen_data = Absensi::with('user')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->orderBy('name')->get();
-        // $absen_data = Absensi::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get()->sortBy(function($query){
-        //     return $query->user->complete_name;
-        // })->unique();
 
         $absen_data = Absensi::whereYear('absensi.created_at', '=', $year)
                         ->whereMonth('absensi.created_at', '=', $month)
@@ -160,7 +156,7 @@ class AbsensiCrudController extends CrudController
                             return $item->created_at->format('d-m-y');
                        });
                        
-        // dd($absen_data);
+
         if(!$absen_data->isEmpty()){
             foreach($absen_data as $absensi_date=>$absen){
                     if(!array_key_exists($absensi_date, $data)){
