@@ -32,14 +32,27 @@ class UsersExport implements WithMultipleSheets, FromArray, ShouldAutoSize, With
     public function sheets(): array
     {  
         $sheets = [];
-        
-        $j=1;
+        $data = [];
+     
 
-        foreach($this->request as $key => $value){
-          
-                    $sheets[] = new AbsensiPerSheet($j,$value, $this->date, $this->periode);
+        for($j=1;$j<=2;$j++){
+            if($j==1){
+                foreach($this->request as $date => $genders){
+                    if(!empty($genders)){
+                        $data['L'][$date] = $genders['L'];
+                    }  
+                }
+               
+            }else{
+                foreach($this->request as $date => $genders){
+                    if(!empty($genders)){
+                        $data['P'][$date] = $genders['P'];
+                    }  
+                }
+            }
+
+            $sheets[] = new AbsensiPerSheet($j,$data, $this->date, $this->periode);
               
-            $j++;
         }
 
         return $sheets;

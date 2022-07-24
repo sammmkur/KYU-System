@@ -17,5 +17,6 @@ Route::group([
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
     Route::crud('absensi', 'AbsensiCrudController');
+    // Route::view('absensi', 'maintenance');
     Route::post('export', 'AbsensiCrudController@download')->name('export');
 }); // this should be the absolute last line of this file

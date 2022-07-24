@@ -35,12 +35,31 @@ class AbsensiPerSheet implements  WithTitle, FromView, ShouldAutoSize, WithPreCa
         $request = $this->request;
         $date = $this->date;
         $periode = $this->periode;
-        // dd($request);
+        $data=[];
+        $absen_date=[];
       
         if($this->i == 1){
-           
+            foreach($request['L'] as $key=>$value){
+                foreach($value as $id =>$value_id){
+                   
+                    if(!array_key_exists($id, $data)){
+                        $data[$id] = [];
+                        $absen_date[$id] = [];
+                    }
+                    array_push($absen_date[$id],$value_id['absent_date']);
+                
+                    $data[$id]=[
+                        'complete' => $value_id['complete_name'],
+                        'short_name' => $value_id['short_name'],
+                        'gender' => $value_id['gender'],
+                        'absent_date' => $absen_date[$id],
+                    ];
+                    
+                }
+               
+            }
             return view('exports.absenlaki', [
-                'data' => $request,
+                'data' => $data,
                 'date' => $date,
                 'periode' => $periode,
                 
@@ -48,9 +67,27 @@ class AbsensiPerSheet implements  WithTitle, FromView, ShouldAutoSize, WithPreCa
             ]);
         }
         else if($this->i == 2) {
-            // dd($this->request);
+            foreach($request['P'] as $key=>$value){
+                foreach($value as $id =>$value_id){
+                   
+                    if(!array_key_exists($id, $data)){
+                        $data[$id] = [];
+                        $absen_date[$id] = [];
+                    }
+                    array_push($absen_date[$id],$value_id['absent_date']);
+                
+                    $data[$id]=[
+                        'complete' => $value_id['complete_name'],
+                        'short_name' => $value_id['short_name'],
+                        'gender' => $value_id['gender'],
+                        'absent_date' => $absen_date[$id],
+                    ];
+                    
+                }
+               
+            }
             return view('exports.absenperempuan', [
-                'data' => $request,
+                'data' => $data,
                 'date' => $date,
                 'periode' => $periode,
                
