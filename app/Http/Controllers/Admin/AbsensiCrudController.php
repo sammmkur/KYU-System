@@ -191,47 +191,18 @@ class AbsensiCrudController extends CrudController
                    
             }
         }
-        // dd($data);
-        
-        // if(!$absen_data->isEmpty()){
-        //     $absen_gender = $absen_data->groupBy('gender');
-        //     // dd($absen_gender);
-           
-        //     foreach($absen_gender as $gender=>$values){
-        //         // array_key_exist
-        //         // dd($value);
-        //         foreach($values as $value){
-        //             if(!array_key_exists($gender, $data)){
-        //                     $data[$gender] = [];
-        //             }
-        //             $data[$gender][$value->user_id] = [
-        //                 'complete_name' => $value->complete_name,
-        //                 'short_name' => $value->name,
-        //                 'gender' => $value->gender,
-        //                 // Carbon\Carbon::parse($value->created_at)->format('Y-m-d')
-        //                 'absent_date' => Carbon::parse($value->created_at)->format('d-m-y'),
-        //             ];
-
-                    
-        //         }
-                
-        //     }
-        // }
-        // dd($data);
+       
         foreach ($this->getSaturdays($year, $month) as $saturday){
                 array_push($date,$saturday->format("d-m-y"));
         }
-        // for ($i=0; $i <2 ; $i++) { 
-        //     $periode =  $i == 0 ? array_push($periode,[$month]): array_push($periode,[$year]);
-            
-        // }
+       
         $month_name = date("F", mktime(0, 0, 0, $month, 10));
         $periode = [
             $month_name,
             $year,
         ];
         
-        // dd($periode);
+       
         return Excel::download(new UsersExport($data, $date, $periode), 'absensi.xlsx');
     }
 }
