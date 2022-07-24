@@ -29,16 +29,18 @@
         @endphp
         @foreach($data as $d=>$value)
         <tr>
-                <td>{{$value['complete_name']}}</td>
+                <td>{{$value['complete']}}</td>
                 <td>{{$value['short_name']}}</td>
                 @foreach ($date as $d)
-                    @if($d == $value['absent_date'])
+                 
+                    @if(in_array($d, $value['absent_date']))
                     
                         <td>v</td>
                     @else
                     
                         <td></td>
                     @endif
+                   
                 @endforeach
         @php
             $i++;
