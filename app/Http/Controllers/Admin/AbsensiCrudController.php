@@ -13,6 +13,7 @@ use App\Models\Absensi;
 use DatePeriod;
 use DateTime;
 use DateInterval;
+use DB;
 /**
  * Class AbsensiCrudController
  * @package App\Http\Controllers\Admin
@@ -76,6 +77,7 @@ class AbsensiCrudController extends CrudController
             'name' => 'created_at',
             'label' => 'Tanggal Absen',
         ]);
+        // $this->crud->addClause('whereDate', 'created_at', '=', Carbon::today());
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -142,10 +144,6 @@ class AbsensiCrudController extends CrudController
         $periode = [];
         $year = $request->period;
         $month = $request->month;
-    //   $absen_data = Absensi::with('user')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->orderBy('name')->get();
-        // $absen_data = Absensi::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get()->sortBy(function($query){
-        //     return $query->user->complete_name;
-        // })->unique();
 
         $absen_data = Absensi::whereYear('absensi.created_at', '=', $year)
                         ->whereMonth('absensi.created_at', '=', $month)
@@ -153,48 +151,54 @@ class AbsensiCrudController extends CrudController
                         ->join('users', 'users.id', '=', 'absensi.user_id')
                         ->select('users.complete_name','users.name','users.gender', 'absensi.*')
                         ->orderBy('users.complete_name')
-                        ->get();
-                        // ->groupBy('users.namegender');
-        // dd($absen_data);
-        
-        if(!$absen_data->isEmpty()){
-            $absen_gender = $absen_data->groupBy('gender');
-           
-            foreach($absen_gender as $gender=>$values){
-                // array_key_exist
-                // dd($value);
-                foreach($values as $value){
-                    if(!array_key_exists($gender, $data)){
-                            $data[$gender] = [];
-                    }
-                    $data[$gender][$value->user_id] = [
-                        'complete_name' => $value->complete_name,
-                        'short_name' => $value->name,
-                        'gender' => $value->gender,
-                        // Carbon\Carbon::parse($value->created_at)->format('Y-m-d')
-                        'absent_date' => Carbon::parse($value->created_at)->format('d-m-y'),
-                    ];
+                        ->get()
+                        ->groupBy(function($item) {
+                            return $item->created_at->format('d-m-y');
+                       });
+                       
 
-                    
-                }
-                
+        if(!$absen_data->isEmpty()){
+            foreach($absen_data as $absensi_date=>$absen){
+                    if(!array_key_exists($absensi_date, $data)){
+                        $data[$absensi_date] = [];
+                    }
+
+                    $absen_gender = $absen->groupBy('gender');
+                   
+                    foreach($absen_gender as $gender=>$values){
+                        
+                        if(!array_key_exists($gender, $data)){
+                            $data[$absensi_date][$gender] = [];
+                        }
+                        foreach($values as $value){
+    
+                            $data[$absensi_date][$gender][$value->user_id] = [
+                                'complete_name' => $value->complete_name,
+                                'short_name' => $value->name,
+                                'gender' => $value->gender,
+                                'absent_date' => Carbon::parse($value->created_at)->format('d-m-y'),
+                            ];
+                            
+        
+                            
+                        }
+                        
+                    }
+                   
             }
         }
-        // dd($data);
+       
         foreach ($this->getSaturdays($year, $month) as $saturday){
                 array_push($date,$saturday->format("d-m-y"));
         }
-        // for ($i=0; $i <2 ; $i++) { 
-        //     $periode =  $i == 0 ? array_push($periode,[$month]): array_push($periode,[$year]);
-            
-        // }
+       
         $month_name = date("F", mktime(0, 0, 0, $month, 10));
         $periode = [
             $month_name,
             $year,
         ];
         
-        // dd($periode);
+       
         return Excel::download(new UsersExport($data, $date, $periode), 'absensi.xlsx');
     }
 }
