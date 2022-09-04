@@ -76,7 +76,7 @@ class AbsensiCrudController extends CrudController
             'name' => 'created_at',
             'label' => 'Tanggal Absen',
         ]);
-
+        $this->crud->addClause('whereDate', 'created_at', '=', Carbon::today());
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
