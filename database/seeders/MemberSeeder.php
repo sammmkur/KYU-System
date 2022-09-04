@@ -18,7 +18,7 @@ class MemberSeeder extends Seeder
      */
     public function run()
     {
-        $file = storage_path('app/public/master_member/MemberKYU.xlsx');
+        $file = storage_path('app/public/master_member/MemberKYUnew.xlsx');
         $spreadsheet = IOFactory::load($file);
 
         $sheetCount = $spreadsheet->getSheetCount();

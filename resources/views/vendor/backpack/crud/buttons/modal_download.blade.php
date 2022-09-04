@@ -1,7 +1,3 @@
-{{-- @if ($crud->hasAccess('detail')) --}}
-    {{-- <a href="{{ url($crud->route.'/'.$entry->getKey().'/convert') }}" class="btn btn-bordered btn-sm btn-link btn-convert">Convert</a> --}}
-{{-- @endif --}}
-
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalDownload">
     Download
   </button>
@@ -123,18 +119,10 @@
   <script>
   $('#modalDownload').appendTo('body')
 
-  $(".claim-download").on("click", function(e){
-    e.preventDefault();
-      var backpack_url = "{{ backpack_url() }}";
-      var url = backpack_url +'/export-claim/gift';
-      $('#formExcel').attr('action',url).submit();
-  });
-
   $(".control-point-download").on("click", function(e){
     e.preventDefault();
       var backpack_url = "{{ backpack_url() }}";
       var url = backpack_url +'/export';
-      console.log(url);
       $('#formExcel').attr('action',url).submit();
   });
 

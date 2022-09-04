@@ -138,7 +138,6 @@ class AbsensiCrudController extends CrudController
     }
     
     public function download(Request $request){
-
         $data = [];
         $date = [];
         $periode = [];
@@ -197,7 +196,6 @@ class AbsensiCrudController extends CrudController
             $month_name,
             $year,
         ];
-        
        
         return Excel::download(new UsersExport($data, $date, $periode), 'absensi.xlsx');
     }
